@@ -1,35 +1,38 @@
 package ATMSimulation;
 
-import java.util.*;
+import java.util.Scanner;
 
 public class ATMSimulation 
 {
     static int Pin;
-    static String P;
-    public void ChangePin(Scanner in)
+    public static boolean isValid(int Pi){
+        return Pi>999 && Pi<10000;
+    }
+    public static void changePin(Scanner in)
     {
         int NPin,CPin=0;
-        String NP,CP;
         do{
             System.out.println("Enter NEW PIN:");
             do{
                 NPin=in.nextInt();
-                NP=String.valueOf(NPin);
-            }while(NP.length()!=4 || NPin==Pin);
+                if(NPin==Pin)
+                    System.out.println("New Pin Matches with Initial Pin...\nPlease write different PIN to update..");
+            }while(!isValid(NPin) ||NPin==Pin);
+
             System.out.println("Enter Again To CONFIRM PIN:");
-            do{
                 CPin=in.nextInt();
-                CP=String.valueOf(CPin);
-            }while(CP.length()!=4);
-        }while(!CP.equals(NP));
-        Pin=CPin;P=CP;
+            if(!isValid(CPin))
+                System.out.println("PINs must be 4 digits...");
+            else if(NPin!=CPin)
+                System.out.println("PINs do not match. Try Again...");
+        }while(NPin!=CPin);
+        Pin=CPin;
     }
     public static void main(String[] args)
     {
         Scanner in=new Scanner(System.in);
-        ATMSimulation ob=new ATMSimulation();
 
-        String Hname,SecAns,Ans,AccNo,AcNo,CP="";
+        String Hname,SecAns,Ans,AccNo,AcNo;
         int CurPin;
         long InBal,Bal;
         int n,i=0;
@@ -41,8 +44,7 @@ public class ATMSimulation
         do{
             System.out.println("Enter PIN(4 digit): ");
             Pin=in.nextInt();
-            P=String.valueOf(Pin);
-        }while((P.length())!=4);
+        }while(!isValid(Pin));
 
         do{
         System.out.println("Enter Initial Balance: ");
@@ -58,6 +60,7 @@ public class ATMSimulation
             n=in.nextInt();
             switch(n){
                 case 1:
+                    System.out.println("Account holder: "+Hname+"\nAccount No.:"+AccNo);
                     System.out.println("Your Current Balance is:"+InBal);
                     break;
                 case 2:
@@ -93,20 +96,19 @@ public class ATMSimulation
                         do{
                             System.out.println("Enter Current PIN(4-Digit): ");
                                 CurPin=in.nextInt();
-                                CP=String.valueOf(CurPin);
-                        }while((CP.length())!=4);
-                    if(!CP.equals(P)){
-                        System.out.println("Incorrect PIN... ");
-                        i++;
-                        System.out.println("Attempts remaining:"+(4-i)+"\n");
-                        if(i==4)
-                            System.out.println("Too many incorrect attempts. Please verify your account to reset your PIN.\n");
-                    }
-                    else
-                        i=4;
+                        }while(!isValid(CurPin));
+                        if(CurPin!=Pin){
+                            System.out.println("Incorrect PIN... ");
+                            i++;
+                            System.out.println("Attempts remaining:"+(4-i)+"\n");
+                            if(i==4)
+                                System.out.println("Too many incorrect attempts. Please verify your account to reset your PIN.\n");
+                            }
+                            else
+                                i=4;
                     }while(i!=4);
 
-                    if(!CP.equals(P)){
+                    if(CurPin!=Pin){
                         System.out.println("Enter Your Account Number: ");
                         AcNo=in.next();
                         if(!AccNo.equals(AcNo)){
@@ -116,14 +118,14 @@ public class ATMSimulation
                         System.out.println("Enter Security Question's Answer: \n\"Question:what is Your favourite Colour:\"");
                         Ans=in.next();
                         if(Ans.equalsIgnoreCase(SecAns)){
-                            ob.ChangePin(in);
+                            changePin(in);
                             System.out.println("Your PIN Has Been Changed Successfully!!");
                         }
                         else
                             System.out.println("Sorry...PIN cannot be Changed...");
                     }
                     else{
-                        ob.ChangePin(in);
+                        changePin(in);
                         System.out.println("Your PIN Has Been Changed Successfully!!");
                     }
                     break;
