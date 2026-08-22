@@ -24,6 +24,16 @@ The Program also counts the number of attempts taken to guess the correct number
 ### 3. Student Average
 A Java Program that takes a student's name and marks for multiple subjects, calculates the average marks, and assigns a grade based on the average. It also validates that each marks is between 0 and 100.
 
+### 4. ATM Simulation
+A console-based Java ATM Simulation that allows users to perform basic banking operations.
+-PIN Authentication
+-Balance Inquiry
+-Deposit
+-Withdrawal
+-Change PIN
+-Input Validation
+The Program uses conditional statements, loops, methods and input validation to simualte common ATM operations. 
+
 ## Technologies
 -Java
 -VS Code
