@@ -13,7 +13,7 @@ public class Calculator
             System.out.println("\nEnter the number to perform Following: \n 1.Addition \n 2.Subtraction \n 3.Multiplication \n 4.Division \n 5.Percentage \n 6.Square Root \n 7.Power \n 8.Exit \n");
             n=sc.nextInt();
             if(n<1 || n>8){
-                System.out.println("Invalid choice: ");
+                System.out.println("Invalid choice.... ");
                 continue;
             }
             switch(n){
